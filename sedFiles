@@ -1,0 +1,9 @@
+#!/bin/bash
+for dict in $1 
+do
+	for sed_variable in $2
+	do
+		eval "sed_variable_VALUE=\$$sed_variable"
+		sed -i "s/SED_$sed_variable/$sed_variable_VALUE/g" $dict
+	done
+done
