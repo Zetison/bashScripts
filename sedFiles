@@ -1,7 +1,7 @@
 #!/bin/bash
-for dict in $1 
+for dict in $DICTS 
 do
-	for sed_variable in $2
+	for sed_variable in $SED_VARIABLES
 	do
 		eval "sed_variable_VALUE=\$$sed_variable"
 		sed -i "s/SED_$sed_variable/$sed_variable_VALUE/g" $dict
