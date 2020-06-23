@@ -9,3 +9,10 @@ SED_VARIABLES="foo1 foo2 foo3 foo4" # Variables to be found and replaced in the 
 DICTS="file1 file2 file3"           # Files in which to perform sed
 source $HOME/kode/bashScripts/sedFiles
 ```
+
+## vimrc
+In order to use the vim-settings in the vimrc file, perform the following (note that vim must be restartet in order for the configuration to take place)
+
+```console
+cp vimrc ~/.vimrc
+```
