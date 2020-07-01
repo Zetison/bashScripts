@@ -1,7 +1,7 @@
 #!/bin/tcsh
-setenv WRF_DIR $HOME/kode/WRF
-setenv TEST_DIR $WRF_DIR/TESTS
-setenv DIR $WRF_DIR/Build_WRF/LIBRARIES
+setenv WRFDIRECTORY $HOME/kode/WRF
+setenv TEST_DIR $WRFDIRECTORY/TESTS
+setenv DIR $WRFDIRECTORY/Build_WRF/LIBRARIES
 setenv CC gcc
 setenv CXX g++
 setenv FC gfortran
