@@ -1,0 +1,10 @@
+#!/bin/bash
+dates=$1
+hours=$2
+for t in $hours 
+do
+	for date in $dates
+	do
+		curl -s --disable-epsv --connect-timeout 30 -m 60 -u anonymous:JonVegard.Venas@sintef.no -o "GFS_"$date"_"$t"h" ftp://ftpprd.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.$date/00/gfs.t00z.pgrb2.0p50.f0$t
+	done
+done
