@@ -1,18 +1,6 @@
 #!/bin/tcsh
 
-setenv TEST_DIR $HOME/kode/WRF/TESTS
-setenv DIR $HOME/kode/WRF/Build_WRF/LIBRARIES
-setenv CC gcc
-setenv CXX g++
-setenv FC gfortran
-setenv FCFLAGS -m64
-setenv F77 gfortran
-setenv FFLAGS -m64
-setenv JASPERLIB $DIR/grib2/lib
-setenv JASPERINC $DIR/grib2/include
-setenv LDFLAGS -L$DIR/grib2/lib
-setenv CPPFLAGS -I$DIR/grib2/include
-
+source ~/kode/bashScripts/sourceWRF.csh
 mkdir -p $DIR 
 mkdir -p $TEST_DIR
 cd $TEST_DIR 
@@ -72,8 +60,6 @@ cd netcdf-4.1.3
 ./configure --prefix=$DIR/netcdf --disable-dap --disable-netcdf-4 --disable-shared
 make
 make install
-setenv PATH $DIR/netcdf/bin:$PATH
-setenv NETCDF $DIR/netcdf
 cd ..
 
 # MPICH
@@ -82,7 +68,6 @@ cd mpich-3.0.4
 ./configure --prefix=$DIR/mpich
 make
 make install
-setenv PATH $DIR/mpich/bin:$PATH
 cd ..
 
 # zlib
@@ -108,5 +93,80 @@ cd jasper-1.900.1
 make
 make install
 cd ..
+
+# Library Compatibility Tests
+cd $TEST_DIR
+wget https://www2.mmm.ucar.edu/wrf/OnLineTutorial/compile_tutorial/tar_files/Fortran_C_NETCDF_MPI_tests.tar
+tar -xf Fortran_C_NETCDF_MPI_tests.tar
+
+# Test #1: Fortran + C + NetCDF
+cp ${NETCDF}/include/netcdf.inc .
+
+gfortran -c 01_fortran+c+netcdf_f.f
+gcc -c 01_fortran+c+netcdf_c.c
+gfortran 01_fortran+c+netcdf_f.o 01_fortran+c+netcdf_c.o \
+     -L${NETCDF}/lib -lnetcdff -lnetcdf
+./a.out
+
+# Test #2: Fortran + C + NetCDF + MPI
+cp ${NETCDF}/include/netcdf.inc .
+
+mpif90 -c 02_fortran+c+netcdf+mpi_f.f
+mpicc -c 02_fortran+c+netcdf+mpi_c.c
+mpif90 02_fortran+c+netcdf+mpi_f.o \
+02_fortran+c+netcdf+mpi_c.o \
+     -L${NETCDF}/lib -lnetcdff -lnetcdf
+mpirun ./a.out
+
+# BUILD WRF
+cd $WRFDIRECTORY
+cd Build_WRF
+git clone https://github.com/wrf-model/WRF
+cd WRF
+./configure 34 1 # use option 34
+./compile em_real > & log.compile
+ls -ls main/*.exe
+cd ..
+
+# BUILD WPS
+git clone https://github.com/wrf-model/WPS
+cd WPS
+./configure 3 # use option 3
+./compile >& log.compile
+ls -lh geogrid/src/geogrid.exe
+ls -lh ungrib/src/ungrib.exe
+ls -lh metgrid/src/metgrid.exe
+cd ..
+
+# Static Geography Data
+mkdir -p $WPSDATADIRECTORY
+cd $WPSDATADIRECTORY
+#wget https://www2.mmm.ucar.edu/wrf/src/wps_files/geog_low_res_mandatory.tar.gz
+#gunzip geog_low_res_mandatory.tar.gz
+#tar -xf geog_low_res_mandatory.tar
+#wget https://www2.mmm.ucar.edu/wrf/src/wps_files/geog_high_res_mandatory.tar.gz
+#gunzip geog_high_res_mandatory.tar.gz
+#tar -xf geog_high_res_mandatory.tar
+# mv geog WPS_GEOG # not needed
+# NB: edit line 39 of namelist.wps: geog_data_path = '/home/joveve/kode/WRF/Build_WRF/WPS_GEOG_LOW_RES/'
+cd $WRFDIRECTORY/Build_WRF/WPS
+sed -i "39s|.*| geog_data_path = '$WPSDATADIRECTORY'|" namelist.wps
+cd ..
+
+# Real-time Data
+mkdir -p DATA
+cd DATA
+$HOME/kode/bashScripts/getNCEPdata "20200701" "00 03 06"
+cd ..
+
+# Run WPS and WRF
+cd WPS
+./geogrid.exe >& log.geogrid
+./link_grib.csh $WPSDATADIRECTORY 
+ln -sf ungrib/Variable_Tables/Vtable.GFS Vtable
+./ungrib.exe
+./metgrid.exe >& log.metgrid
+
+
 
 

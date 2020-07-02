@@ -1,5 +1,6 @@
 #!/bin/bash
-export WRF_DIR=$HOME/kode/WRF
+export WPSDATADIRECTORY=$HOME/WPS_DATA
+export WRFDIRECTORY=$HOME/kode/WRF
 export TEST_DIR=$WRF_DIR/TESTS
 export DIR=$WRF_DIR/Build_WRF/LIBRARIES
 export CC=gcc

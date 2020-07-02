@@ -16,3 +16,14 @@ In order to use the vim-settings in the vimrc file, perform the following (note 
 ```console
 cp vimrc ~/.vimrc
 ```
+
+## getNCEPdata
+```console
+$HOME/kode/bashScripts/getNCEPdata "20200701" "00 03 06"
+```
+
+## buildWRF
+```console
+$HOME/kode/bashScripts/buildWRF
+```
+
