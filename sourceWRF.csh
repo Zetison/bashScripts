@@ -19,3 +19,5 @@ setenv PATH $DIR/netcdf/bin:$PATH
 
 setenv NETCDF $DIR/netcdf
 setenv PATH $DIR/mpich/bin:$PATH
+
+setenv NETCDF_classic 1

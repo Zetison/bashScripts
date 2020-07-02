@@ -1,8 +1,8 @@
 #!/bin/bash
 export WPSDATADIRECTORY=$HOME/WPS_DATA
 export WRFDIRECTORY=$HOME/kode/WRF
-export TEST_DIR=$WRF_DIR/TESTS
-export DIR=$WRF_DIR/Build_WRF/LIBRARIES
+export TEST_DIR=$WRFDIRECTORY/TESTS
+export DIR=$WRFDIRECTORY/Build_WRF/LIBRARIES
 export CC=gcc
 export CXX=g++
 export FC=gfortran
@@ -19,3 +19,5 @@ export PATH=$DIR/mpich/bin:$PATH
 
 export LDFLAGS=-L$DIR/grib2/lib
 export CPPFLAGS=-I$DIR/grib2/include
+
+export NETCDF_classic=1
