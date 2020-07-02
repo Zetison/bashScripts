@@ -125,7 +125,6 @@ cd $WPSDATADIRECTORY
 #gunzip geog_high_res_mandatory.tar.gz
 #tar -xf geog_high_res_mandatory.tar
 # mv geog WPS_GEOG # not needed
-# NB: edit line 39 of namelist.wps: geog_data_path = '/home/joveve/kode/WRF/Build_WRF/WPS_GEOG_LOW_RES/'
 cd $WRFDIRECTORY/Build_WRF
 
 # Real-time Data
@@ -139,28 +138,28 @@ cd $WRFDIRECTORY/Build_WRF
 git clone https://github.com/wrf-model/WRF
 cd WRF
 ./configure # use option 34 1
-#./compile em_real > & log.compile
-#ls -ls main/*.exe
+./compile em_real > & log.compile
+ls -ls main/*.exe
 cd ..
 
 # BUILD WPS
 git clone https://github.com/wrf-model/WPS
 cd WPS
 sed -i "39s|.*| geog_data_path = '$WPSDATADIRECTORY'|" namelist.wps
-#./configure # use option 3
-#./compile >& log.compile
-#ls -lh geogrid/src/geogrid.exe
-#ls -lh ungrib/src/ungrib.exe
-#ls -lh metgrid/src/metgrid.exe
+./configure # use option 3
+./compile >& log.compile
+ls -lh geogrid/src/geogrid.exe
+ls -lh ungrib/src/ungrib.exe
+ls -lh metgrid/src/metgrid.exe
 cd ..
 
 
 ## Run WPS and WRF
 cd WPS
-#./geogrid.exe >& log.geogrid
-#./link_grib.csh $WPSDATADIRECTORY 
-#ln -sf ungrib/Variable_Tables/Vtable.GFS Vtable
-#./ungrib.exe
+./geogrid.exe >& log.geogrid
+./link_grib.csh $WPSDATADIRECTORY 
+ln -sf ungrib/Variable_Tables/Vtable.GFS Vtable
+./ungrib.exe
 #./metgrid.exe >& log.metgrid
 
 

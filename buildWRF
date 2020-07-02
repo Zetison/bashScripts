@@ -132,7 +132,6 @@ then
 	#gunzip geog_high_res_mandatory.tar.gz
 	#tar -xf geog_high_res_mandatory.tar
 	# mv geog WPS_GEOG # not needed
-	# NB: edit line 39 of namelist.wps: geog_data_path = '/home/joveve/kode/WRF/Build_WRF/WPS_GEOG_LOW_RES/'
 	cd $WRFDIRECTORY/Build_WRF
 	
 	# Real-time Data
