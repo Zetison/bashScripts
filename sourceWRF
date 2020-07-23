@@ -21,3 +21,6 @@ export LDFLAGS=-L$DIR/grib2/lib
 export CPPFLAGS=-I$DIR/grib2/include
 
 export NETCDF_classic=1
+export LD_LIBRARY_PATH=$WRFDIRECTORY/Build_WRF/LIBRARIES/grib2/lib:$LD_LIBRARY_PATH
+export NCARG_COLORMAPS=$HOME/kode/colormaps:$NCARG_ROOT/lib/ncarg/colormaps
+source activate ncl_stable

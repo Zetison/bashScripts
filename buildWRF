@@ -118,6 +118,13 @@ then
 	mpicc -c 02_fortran+c+netcdf+mpi_c.c
 	mpif90 02_fortran+c+netcdf+mpi_f.o 02_fortran+c+netcdf+mpi_c.o -L${NETCDF}/lib -lnetcdff -lnetcdf
 	mpirun ./a.out
+
+	# Install ncl (using conda). Conda may be obtained from http://conda.pydata.org/miniconda.html
+
+	conda create -n ncl_stable -c conda-forge ncl
+	source activate ncl_stable
+
+
 fi
 
 if [[ $3 == 1 ]]
@@ -132,9 +139,9 @@ then
 	#gunzip geog_high_res_mandatory.tar.gz
 	#tar -xf geog_high_res_mandatory.tar
 	# mv geog WPS_GEOG # not needed
-	cd $WRFDIRECTORY/Build_WRF
 	
 	# Real-time Data
+	cd $WRFDIRECTORY/Build_WRF
 	mkdir -p DATA
 	cd DATA
 	$HOME/kode/bashScripts/getNCEPdata "20200701" "00 03 06"
@@ -157,7 +164,7 @@ then
 	cd WPS
 	sed -i "39s|.*| geog_data_path = '$WPSDATADIRECTORY'|" namelist.wps
 	./configure # use option 3
-	./compile >& log.compile
+	./compile | tee log.compile
 	ls -lh geogrid/src/geogrid.exe
 	ls -lh ungrib/src/ungrib.exe
 	ls -lh metgrid/src/metgrid.exe
@@ -166,13 +173,27 @@ fi
 
 if [[ $5 == 1 ]]
 then
-	## Run WPS and WRF
-	cd WPS
-	./geogrid.exe >& log.geogrid
-	./link_grib.csh $WPSDATADIRECTORY 
+	## Run WPS
+	cd $WRFDIRECTORY/Build_WRF/WPS
+	./geogrid.exe | tee log.geogrid
+	ncl util/plotgrids_new.ncl
+	ncl util/wrf_wps_ter.ncl
+	./link_grib.csh $WRFDIRECTORY/Build_WRF/DATA/GFS*
 	ln -sf ungrib/Variable_Tables/Vtable.GFS Vtable
 	./ungrib.exe
-	./metgrid.exe >& log.metgrid
+	./metgrid.exe | tee log.metgrid
+	cd ..
+
+	## Run WRF
+	cd WRF/run
+	ln -sf ../../WPS/met_em* .
+	mpirun -np 1 ./real.exe
+	ncl ../var/graphics/ncl/wrf_Surface1.ncl
+	ncl ../var/graphics/ncl/wrf_Surface2.ncl
+	ncl ../var/graphics/ncl/wrf_Surface3.ncl
+
+#	mpirun -np 4 ./wrf.exe
+
 fi	
 	
 	

@@ -4,6 +4,6 @@ do
 	for sed_variable in $SED_VARIABLES
 	do
 		eval "sed_variable_VALUE=\$$sed_variable"
-		sed -i "s/SED_$sed_variable/$sed_variable_VALUE/g" $dict
+		sed -i "s/SED_$sed_variable/${sed_variable_VALUE//\//\\\/}/g" $dict
 	done
 done
