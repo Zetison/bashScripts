@@ -1,10 +1,35 @@
 #!/bin/bash
-dates=$1
-hours=$2
-for t in $hours 
+startdate=$1
+enddate=$2
+dt=$3
+date=$startdate
+temp="${enddate:0:10} ${enddate:11}"
+epochend=$(date -d"$temp" +%s)
+while true
 do
-	for date in $dates
-	do
-		curl -s --disable-epsv --connect-timeout 30 -m 60 -u anonymous:JonVegard.Venas@sintef.no -o "GFS_"$date"_"$t"h" ftp://ftpprd.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.$date/00/gfs.t00z.pgrb2.0p50.f0$t
-	done
+	temp="${date:0:10} ${date:11}"
+	epoch=$(date -d"$temp" +%s)
+	if (( epoch <= epochend ))
+	then
+  	dates="$dates $date"
+	else
+		break
+	fi
+  date="$(date +'%Y-%m-%d_%T' --date="$temp UTC+2 + $dt seconds")"
+done
+
+startdate=$(echo $startdate | sed 's/-//g' | sed 's/_//g' | sed 's/://g')
+startdate="${startdate:0:8}/${startdate:8:2}"
+t=0
+for date in $dates
+do
+	ftime=`printf "%03d\n" "${t}"`
+	temp="GFS_${startdate:0:8}_${startdate:9:2}_${ftime}h"
+	if [[ ! -f "$temp" ]]
+	then
+		echo "Downloading NCEP data file $temp at grid resolution $4"
+		curl -s -S --disable-epsv --connect-timeout 30 -m 60 -u anonymous:JonVegard.Venas@sintef.no \
+			   -o $temp ftp://ftpprd.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.${startdate:0:11}/gfs.t${startdate:9:2}z.pgrb2.${4}.f$ftime
+	fi
+	t=$(($t + $dt/3600))
 done

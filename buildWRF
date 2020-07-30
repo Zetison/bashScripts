@@ -82,6 +82,18 @@ then
 	make install
 	cd ..
 	
+#	wget --no-check-certificate https://sourceforge.net/projects/libpng/files/zlib/1.2.9/zlib-1.2.9.tar.gz/download
+#	tar -xvf zlib-1.2.9.tar.gz
+#	cd zlib-1.2.9
+#	sudo -s
+#	./configure
+#	make 
+#	make install
+#	cd /lib/x86_64-linux-gnu
+#	ln -s -f /usr/local/lib/libz.so.1.2.9/lib libz.so.1
+#	cd ~
+#	rm -rf zlib-1.2.9
+
 	# libpng
 	tar xzvf libpng-1.2.50.tar.gz     #or just .tar if no .gz present
 	cd libpng-1.2.50
@@ -155,7 +167,7 @@ then
 	git clone https://github.com/wrf-model/WRF
 	cd WRF
 	./configure # use option 34 1
-	./compile em_real >& log.compile
+	./compile em_real | tee log.compile
 	ls -ls main/*.exe
 	cd ..
 	
@@ -187,12 +199,12 @@ then
 	## Run WRF
 	cd WRF/run
 	ln -sf ../../WPS/met_em* .
-	mpirun -np 1 ./real.exe
+	mpirun -np 4 ./real.exe
 	ncl ../var/graphics/ncl/wrf_Surface1.ncl
 	ncl ../var/graphics/ncl/wrf_Surface2.ncl
 	ncl ../var/graphics/ncl/wrf_Surface3.ncl
 
-#	mpirun -np 4 ./wrf.exe
+	mpirun -np 4 ./wrf.exe
 
 fi	
 	

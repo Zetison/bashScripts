@@ -11,9 +11,12 @@ export F77=gfortran
 export FFLAGS=-m64
 export JASPERLIB=$DIR/grib2/lib
 export JASPERINC=$DIR/grib2/include
+export JASPER_INC=$DIR/grib2/include
+export PNG_INC=$DIR/grib2/include
 
 export PATH=$DIR/netcdf/bin:$PATH
 export NETCDF=$DIR/netcdf
+export NCEPLIBS_DIR=$DIR/nceplibs
 
 export PATH=$DIR/mpich/bin:$PATH
 
@@ -23,4 +26,9 @@ export CPPFLAGS=-I$DIR/grib2/include
 export NETCDF_classic=1
 export LD_LIBRARY_PATH=$WRFDIRECTORY/Build_WRF/LIBRARIES/grib2/lib:$LD_LIBRARY_PATH
 export NCARG_COLORMAPS=$HOME/kode/colormaps:$NCARG_ROOT/lib/ncarg/colormaps
-source activate ncl_stable
+
+# Install Miniconda
+# wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+# conda create -n ncl_stable -c conda-forge ncl
+# conda update -n ncl_stable -c conda-forge --all
+# source activate ncl_stable
