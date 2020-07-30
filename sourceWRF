@@ -30,5 +30,8 @@ export NCARG_COLORMAPS=$HOME/kode/colormaps:$NCARG_ROOT/lib/ncarg/colormaps
 # Install Miniconda
 # wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 # conda create -n ncl_stable -c conda-forge ncl
+# conda config --set changeps1 False # to remove (base) in fron of prompt
 # conda update -n ncl_stable -c conda-forge --all
 # source activate ncl_stable
+# conda activate ncl_stable
+

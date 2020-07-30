@@ -155,9 +155,9 @@ then
 	# Real-time Data
 	cd $WRFDIRECTORY/Build_WRF
 	mkdir -p DATA
-	cd DATA
-	$HOME/kode/bashScripts/getNCEPdata "20200701" "00 03 06"
-	cd ..
+	#cd DATA
+	#$HOME/kode/bashScripts/getNCEPdata "20200701" "00 03 06"
+	#cd ..
 fi
 
 if [[ $4 == 1 ]]
@@ -166,7 +166,7 @@ then
 	cd $WRFDIRECTORY/Build_WRF
 	git clone https://github.com/wrf-model/WRF
 	cd WRF
-	./configure # use option 34 1
+	./configure & # use option 34 1
 	./compile em_real | tee log.compile
 	ls -ls main/*.exe
 	cd ..
@@ -175,7 +175,7 @@ then
 	git clone https://github.com/wrf-model/WPS
 	cd WPS
 	sed -i "39s|.*| geog_data_path = '$WPSDATADIRECTORY'|" namelist.wps
-	./configure # use option 3
+	./configure & # use option 3
 	./compile | tee log.compile
 	ls -lh geogrid/src/geogrid.exe
 	ls -lh ungrib/src/ungrib.exe
