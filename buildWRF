@@ -174,7 +174,6 @@ then
 	# BUILD WPS
 	git clone https://github.com/wrf-model/WPS
 	cd WPS
-	sed -i "39s|.*| geog_data_path = '$WPSDATADIRECTORY'|" namelist.wps
 	./configure & # use option 3
 	./compile | tee log.compile
 	ls -lh geogrid/src/geogrid.exe
@@ -208,5 +207,24 @@ then
 
 fi	
 	
+if [[ $6 == 1 ]]
+then
+	cd $HOME/Downloads
+	wget https://gist.github.com/wgustafson/0bb2cc307b4a7d3dbaaa2e119c6ca431/archive/5026abcae7b67f64afef13331d58ff373acb6b8b.zip
+	unzip 5026abcae7b67f64afef13331d58ff373acb6b8b.zip
+	mv 0bb2cc307b4a7d3dbaaa2e119c6ca431-5026abcae7b67f64afef13331d58ff373acb6b8b/WRF2VTK.py ~/kode/python
+	python -m pip install netCDF4
+	python -m pip install vtk
+
+
+fi
 	
-	
+if [[ $7 == 1 ]]
+then
+	cd $HOME/Downloads
+	git clone git@github.com:CazYokoyama/wrfv3.git
+	cd wrfv3/geog
+	cp -r soiltype_top_10m soiltype_bot_10m $WPSDATADIRECTORY/WPS_GEOG
+fi
+
+
