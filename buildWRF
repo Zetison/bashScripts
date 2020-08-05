@@ -133,7 +133,7 @@ then
 
 	# Install ncl (using conda). Conda may be obtained from http://conda.pydata.org/miniconda.html
 
-	conda create -n ncl_stable -c conda-forge ncl
+	# conda create -n ncl_stable -c conda-forge ncl
 	source activate ncl_stable
 
 
