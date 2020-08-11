@@ -28,7 +28,7 @@ do
 	if [[ ! -f "$temp" ]]
 	then
 		echo "Downloading NCEP data file $temp at grid resolution $4"
-		curl -s -S --disable-epsv --connect-timeout 30 -m 60 -u anonymous:JonVegard.Venas@sintef.no \
+		curl -s -S --disable-epsv --connect-timeout 1000 -m 1000 -u anonymous:JonVegard.Venas@sintef.no \
 			   -o $temp ftp://ftpprd.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.${startdate:0:11}/gfs.t${startdate:9:2}z.pgrb2.${4}.f$ftime
 	fi
 	t=$(($t + $dt/3600))
