@@ -25,10 +25,10 @@ t=0
 for date in $dates
 do
 	ftime=`printf "%03d\n" "${t}"`
-	temp="GFS_${GFS_RES}_${startdate:0:8}_${startdate:9:2}_${ftime}h"
+	temp="GFS_${GFS_RES}_${startdate:0:8}${startdate:9:2}_${ftime}h"
 	if [[ ! -f "$temp" ]]
 	then
-		echo "Downloading NCEP data file $temp at grid resolution $4"
+		echo "Downloading NCEP data file $temp at grid resolution ${GFS_RES}"
 		curl -s -S --disable-epsv --connect-timeout 1000 -m 1000 -u anonymous:JonVegard.Venas@sintef.no \
 			   -o $temp ftp://ftpprd.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.${startdate:0:11}/gfs.t${startdate:9:2}z.pgrb2.${GFS_RES}.f$ftime
 	fi
