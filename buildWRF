@@ -216,7 +216,12 @@ then
 	mv 0bb2cc307b4a7d3dbaaa2e119c6ca431-5026abcae7b67f64afef13331d58ff373acb6b8b/WRF2VTK.py $HOME/kode/python
 	python -m pip install netCDF4
 	python -m pip install vtk
-
+	python -m pip install wrf-python
+	
+	cd $HOME/kode
+	git clone https://github.com/TheBB/SISO
+	cd SISO
+	pip3 install --user . --trusted-host pypi.python.org --trusted-host files.pythonhosted.org --trusted-host pypi.org
 
 fi
 	
