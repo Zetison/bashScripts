@@ -29,7 +29,7 @@ do
 	if [[ ! -f "$temp" ]]
 	then
 		echo "Downloading NCEP data file $temp"
-		curl --retry 360 --retry-delay 60 --retry-max-time 21600 --retry-connrefused --retry-all-errors -s --disable-epsv \
+		curl --retry 360 --retry-delay 60 --retry-max-time 21600 --retry-connrefused -s --disable-epsv \
 			   --connect-timeout 1000 -m 1000 -u anonymous:JonVegard.Venas@sintef.no \
 			   -o $temp ftp://ftpprd.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.${startdate:0:11}/gfs.t${startdate:9:2}z.pgrb2.${GFS_RES}.f$ftime
 	fi
