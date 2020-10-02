@@ -139,34 +139,13 @@ then
 
 fi
 
-if [[ $3 == 1 ]]
-then
-	# Static Geography Data
-	mkdir -p $WPSDATADIRECTORY
-	cd $WPSDATADIRECTORY
-	#wget https://www2.mmm.ucar.edu/wrf/src/wps_files/geog_low_res_mandatory.tar.gz
-	#gunzip geog_low_res_mandatory.tar.gz
-	#tar -xf geog_low_res_mandatory.tar
-	#wget https://www2.mmm.ucar.edu/wrf/src/wps_files/geog_high_res_mandatory.tar.gz
-	#gunzip geog_high_res_mandatory.tar.gz
-	#tar -xf geog_high_res_mandatory.tar
-	# mv geog WPS_GEOG # not needed
-	
-	# Real-time Data
-	cd $WRFDIRECTORY/Build_WRF
-	mkdir -p DATA
-	#cd DATA
-	#$HOME/kode/bashScripts/getNCEPdata "20200701" "00 03 06"
-	#cd ..
-fi
-
 if [[ $4 == 1 ]]
 then
 	# BUILD WRF
 	cd $WRFDIRECTORY/Build_WRF
-	git clone https://github.com/wrf-model/WRF
+	git clone https://github.com/Zetison/WRF
 	cd WRF
-	./configure & # use option 34 1
+	./configure # use option 34 1
 	./compile em_real | tee log.compile
 	ls -ls main/*.exe
 	cd ..
@@ -174,7 +153,7 @@ then
 	# BUILD WPS
 	git clone https://github.com/wrf-model/WPS
 	cd WPS
-	./configure & # use option 3
+	./configure # use option 3
 	./compile | tee log.compile
 	ls -lh geogrid/src/geogrid.exe
 	ls -lh ungrib/src/ungrib.exe
@@ -214,9 +193,8 @@ then
 	unzip 5026abcae7b67f64afef13331d58ff373acb6b8b.zip
 	mkdir $HOME/kode/python
 	mv 0bb2cc307b4a7d3dbaaa2e119c6ca431-5026abcae7b67f64afef13331d58ff373acb6b8b/WRF2VTK.py $HOME/kode/python
-	python -m pip install netCDF4
-	python -m pip install vtk
-	python -m pip install wrf-python
+	conda install -c conda-forge wrf-python
+	conda install -c conda-forge wrf-python netCDF4 vtk scipy click requests pandas
 	
 	cd $HOME/kode
 	git clone https://github.com/TheBB/SISO
