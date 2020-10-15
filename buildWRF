@@ -193,7 +193,7 @@ then
 	unzip 5026abcae7b67f64afef13331d58ff373acb6b8b.zip
 	mkdir $HOME/kode/python
 	mv 0bb2cc307b4a7d3dbaaa2e119c6ca431-5026abcae7b67f64afef13331d58ff373acb6b8b/WRF2VTK.py $HOME/kode/python
-	conda install -c conda-forge wrf-python
+	conda install -c conda-forge wrf-python # need version > 1.3.2
 	conda install -c conda-forge wrf-python netCDF4 vtk scipy click requests pandas
 	
 	cd $HOME/kode
