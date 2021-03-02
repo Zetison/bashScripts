@@ -1,0 +1,16 @@
+#!/bin/bash
+# Several convenient linux commands
+#
+## Initialize Onedrive to start on startup:
+systemctl --user enable onedrive
+systemctl --user start onedrive
+# To see the logs run:
+journalctl --user-unit=onedrive -f
+
+## Run lsyncd
+# Set up lsyncd here: https://www.howtoforge.com/how-to-synchronize-directories-using-lsyncd-on-ubuntu/
+cp ~/OneDrive/config/lsyncd.conf.lua /etc/lsyncd/lsyncd.conf.lua
+systemctl start lsyncd
+systemctl enable lsyncd
+# Check status:
+systemctl status lsyncd
