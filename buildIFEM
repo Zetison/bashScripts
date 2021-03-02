@@ -1,0 +1,37 @@
+#!/bin/bash
+
+sudo add-apt-repository ppa:ifem/ppa
+sudo apt-get update
+sudo apt-get install cmake g++ gfortran
+sudo apt-get install libboost-dev libarpack2-dev libsuperlu-dev
+sudo apt-get install libgotools-core-dev libgotools-trivariate-dev
+
+# Install PetSc
+git clone -b release https://gitlab.com/petsc/petsc.git petsc
+# Seriel
+python ./configure --with-petsc-arch linux-gnu-cxx-opt --configModules=PETSc.Configure --optionsModule=config.compilerOptions --with-mpi=0 --with-lapack-lib=-llapack --with-64-bit-indices=0 --with-shared-libraries=0 --COPTFLAGS=-O3 --CXXOPTFLAGS=-O3 --FOPTFLAGS=-O3 --with-blas-lib=-lblas
+# Parallel
+python ./configure --with-petsc-arch linux-gnu-cxx-opt-mpi --configModules=PETSc.Configure --optionsModule=config.compilerOptions --with-mpi=1 --with-lapack-lib=-llapack --with-64-bit-indices=0 --with-shared-libraries=0 --COPTFLAGS=-O3 --CXXOPTFLAGS=-O3 --FOPTFLAGS=-O3 --with-blas-lib=-lblas --download-ml=1 --download-scalapack=1 --download-mumps=1 --download-hypre=1 --download-superlu_dist=1
+export PETSC_DIR=$HOME/programs/petsc
+#export PETSC_ARCH=linux-gnu-cxx-opt
+export PETSC_ARCH=linux-gnu-cxx-opt-mpi
+#make PETSC_DIR=$HOME/programs/petsc PETSC_ARCH=linux-gnu-cxx-opt all
+make PETSC_DIR=$HOME/programs/petsc PETSC_ARCH=linux-gnu-cxx-opt-mpi all
+
+sudo apt-get install libsuitesparse-dev
+sudo apt-get install liblrspline1-dev
+sudo apt-get install libhdf5-serial-dev
+sudo apt-get install libhdf5-openmpi-dev
+sudo apt-get install libcereal-dev
+
+mkdir Debug
+cd Debug
+cmake .. -DCMAKE_BUILD_TYPE=Debug
+make check -j8
+
+
+git clone https://github.com/akva2/SIMRA-PostProc 
+mkdir r
+cd r
+cmake .. -DCMAKE_BUILD_TYPE=Release -DIFEM_AS_SUBMODULE=1
+make check -j8
