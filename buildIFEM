@@ -35,3 +35,12 @@ mkdir r
 cd r
 cmake .. -DCMAKE_BUILD_TYPE=Release -DIFEM_AS_SUBMODULE=1
 make check -j8
+
+## Add remote
+git clone https://github.com/OPM/IFEM
+cd IFEM
+git remote add akva2 https://github.com/akva2/IFEM
+git fetch akva2
+git pull akva2 ASMs3DLag_evaluate
+git checkout -b akva2_cache_l2_proj origin/master
+git merge akva2/cache_l2_proj
