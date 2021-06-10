@@ -44,3 +44,20 @@ git fetch akva2
 git pull akva2 ASMs3DLag_evaluate
 git checkout -b akva2_cache_l2_proj origin/master
 git merge akva2/cache_l2_proj
+
+git branch -D akva2/draft_sol_transfer
+git remote rm akva2
+
+# Track changes on git repository
+git checkout draft_sol_transfer
+
+# Other git commands
+git pull
+git log
+git rebase akva2/draft_sol_transfer
+# or if tracking
+git rebase origin/draft_sol_transfer
+
+# IFEM:
+git fetch akva2
+git reset --hard akva2/for_jvv2

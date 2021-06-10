@@ -16,7 +16,7 @@ journalctl --user-unit=onedrive -f
 
 ## Run lsyncd
 # Set up lsyncd here: https://www.howtoforge.com/how-to-synchronize-directories-using-lsyncd-on-ubuntu/
-cp ~/OneDrive/config/lsyncd.conf.lua /etc/lsyncd/lsyncd.conf.lua
+sudo cp ~/OneDrive/config/lsyncd.conf.lua /etc/lsyncd/lsyncd.conf.lua
 systemctl start lsyncd
 systemctl enable lsyncd
 # Check status:
@@ -45,4 +45,7 @@ cmake  ../paraview                                             \
   -DPYTHON_EXECUTABLE=/usr/bin/python3
 
 ninja
+
+## Unmute spotify
+pavucontrol
 
