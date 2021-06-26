@@ -54,3 +54,4 @@ pavucontrol
 #    Meta-f Move forward a word, where a word is composed of letters and digits.
 #    Meta-b Move backward a word.
 #    Ctrl-l Clear the screen, reprinting the current line at the top.
+scp -r clayfrac_5m erod irrigation lake_depth nlcd2011_can_ll_9s nlcd2011_imp_ll_9s NUDAPT44_1km sandfrac_5m urbfrac_nlcd2011
