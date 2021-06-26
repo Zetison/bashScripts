@@ -49,3 +49,8 @@ ninja
 ## Unmute spotify
 pavucontrol
 
+#    Ctrl-a Move to the start of the line.
+#    Ctrl-e Move to the end of the line.
+#    Meta-f Move forward a word, where a word is composed of letters and digits.
+#    Meta-b Move backward a word.
+#    Ctrl-l Clear the screen, reprinting the current line at the top.
