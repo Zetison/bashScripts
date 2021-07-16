@@ -143,21 +143,20 @@ if [[ $4 == 1 ]]
 then
 	# BUILD WRF
 	cd $WRFDIRECTORY/Build_WRF
-	git clone https://github.com/Zetison/WRF
+    git clone https://github.com/wrf-model/WRF
+	#git clone https://github.com/Zetison/WRF
 	cd WRF
 	./configure # use option 34 1
-	./compile em_real | tee log.compile
-	ls -ls main/*.exe
+	./compile em_real | tee compile.log
+	ls -lh main/*.exe
 	cd ..
 	
 	# BUILD WPS
 	git clone https://github.com/wrf-model/WPS
 	cd WPS
 	./configure # use option 3
-	./compile | tee log.compile
-	ls -lh geogrid/src/geogrid.exe
-	ls -lh ungrib/src/ungrib.exe
-	ls -lh metgrid/src/metgrid.exe
+	./compile | tee compile.log
+	ls -lh geogrid/src/geogrid.exe ungrib/src/ungrib.exe metgrid/src/metgrid.exe
 	cd ..
 fi
 
