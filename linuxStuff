@@ -1,19 +1,29 @@
 #!/bin/bash
 # Several convenient linux commands
 #
+# Install dropbox using the following guide: https://github.com/abraunegg/onedrive/blob/master/docs/INSTALL.md
+sudo add-apt-repository ppa:yann1ck/onedrive
+sudo apt-get update
+sudo apt install onedrive
+
 ## Initialize Onedrive to start on startup:
 systemctl --user enable onedrive
 systemctl --user start onedrive
+
+~/.config/onedrive/refresh_token
 # To see the logs run:
 journalctl --user-unit=onedrive -f
 
 ## Run lsyncd
 # Set up lsyncd here: https://www.howtoforge.com/how-to-synchronize-directories-using-lsyncd-on-ubuntu/
-cp ~/OneDrive/config/lsyncd.conf.lua /etc/lsyncd/lsyncd.conf.lua
+sudo cp ~/OneDrive/config/lsyncd.conf.lua /etc/lsyncd/lsyncd.conf.lua
 systemctl start lsyncd
 systemctl enable lsyncd
 # Check status:
 systemctl status lsyncd
+
+# Start dropbox:
+~/.dropbox-dist/dropboxd
 
 # Build paraview
 export MESA_INSTALL_PREFIX=/usr
@@ -36,4 +46,21 @@ cmake  ../paraview                                             \
 
 ninja
 
+## Unmute spotify
+pavucontrol
+
+# Run GlView:
+glviewinova
+#    Ctrl-a Move to the start of the line.
+#    Ctrl-e Move to the end of the line.
+#    Meta-f Move forward a word, where a word is composed of letters and digits.
+#    Meta-b Move backward a word.
+#    Ctrl-l Clear the screen, reprinting the current line at the top.
+
+# Combine pdfs
+profileNames="alphaProfiles WindDirProfiles VelocityProfiles"
+for f in $profileNames 
+do 
+    gs -dNOPAUSE -sDEVICE=pdfwrite -sOUTPUTFILE=${f}.pdf -dBATCH ${f}*.pdf
+done
 
