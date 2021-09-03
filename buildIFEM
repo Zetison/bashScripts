@@ -27,6 +27,7 @@ export PETSC_DIR=$HOME/programs/petsc-3.13.1
 export PETSC_ARCH=1
 #export PETSC_ARCH=linux-gnu-cxx-opt
 export PETSC_ARCH=linux-gnu-cxx-opt-mpi
+export PETSC_DIR=/usr/local/petsc/current # on flop-3
 #make PETSC_DIR=$HOME/programs/petsc PETSC_ARCH=linux-gnu-cxx-opt all
 make PETSC_DIR=$HOME/programs/petsc PETSC_ARCH=linux-gnu-cxx-opt-mpi all
 
