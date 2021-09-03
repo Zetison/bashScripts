@@ -64,3 +64,9 @@ do
     gs -dNOPAUSE -sDEVICE=pdfwrite -sOUTPUTFILE=${f}.pdf -dBATCH ${f}*.pdf
 done
 
+# Remove files older than XX hours
+
+find . -type f -mtime +XX -maxdepth 1 -exec rm {} \;
+
+# Rename multiple files/folders (use -n to see results before changes):
+rename "s/_highres//" *_highres
