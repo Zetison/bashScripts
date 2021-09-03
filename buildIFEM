@@ -15,6 +15,7 @@ python ./configure --with-petsc-arch linux-gnu-cxx-opt-mpi --configModules=PETSc
 export PETSC_DIR=$HOME/programs/petsc
 #export PETSC_ARCH=linux-gnu-cxx-opt
 export PETSC_ARCH=linux-gnu-cxx-opt-mpi
+export PETSC_DIR=/usr/local/petsc/current # on flop-3
 #make PETSC_DIR=$HOME/programs/petsc PETSC_ARCH=linux-gnu-cxx-opt all
 make PETSC_DIR=$HOME/programs/petsc PETSC_ARCH=linux-gnu-cxx-opt-mpi all
 

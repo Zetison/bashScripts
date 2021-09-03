@@ -12,11 +12,11 @@ do
 	epoch=$(date -d"$temp" +%s)
 	if (( epoch <= epochend ))
 	then
-  	dates="$dates $date"
+  	    dates="$dates $date"
 	else
 		break
 	fi
-  date="$(date -u +'%Y-%m-%d_%T' --date="$temp UTC + $dt seconds")"
+    date="$(date -u +'%Y-%m-%d_%T' --date="$temp UTC + $dt seconds")"
 done
 
 startdate=$(echo $startdate | sed 's/-//g' | sed 's/_//g' | sed 's/://g')
@@ -31,7 +31,7 @@ do
 		echo "Downloading NCEP data file $temp"
 		curl --retry 360 --retry-delay 60 --retry-max-time 21600 --retry-connrefused -s --disable-epsv \
 			   --connect-timeout 1000 -m 1000 -u anonymous:JonVegard.Venas@sintef.no \
-			   -o $temp ftp://ftpprd.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.${startdate:0:11}/gfs.t${startdate:9:2}z.pgrb2.${GFS_RES}.f$ftime
+			   -o $temp ftp://ftpprd.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.${startdate:0:11}/atmos/gfs.t${startdate:9:2}z.pgrb2.${GFS_RES}.f$ftime
 	fi
 	t=$(($t + $dt/3600))
 done
