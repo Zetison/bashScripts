@@ -70,3 +70,21 @@ find . -type f -mtime +XX -maxdepth 1 -exec rm {} \;
 
 # Rename multiple files/folders (use -n to see results before changes):
 rename "s/_highres//" *_highres
+
+# Add shortcut to server:
+cd ~/.ssh
+vim config
+
+# Password free login:
+ssh-copy-id jonvegar@10.218.180.16
+
+# Add ssh keys to server
+ssh-keygen -t ed25519 -C "jonvegard89@yahoo.com"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+
+# Add key to the github.com settings site: "SSH and GPG keys" -> "New SSH key" and insert the ssh key from the following command output
+cat ~/.ssh/id_ed25519.pub
+
+# Remove ssh password
+ssh-keygen -p

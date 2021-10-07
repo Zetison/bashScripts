@@ -115,27 +115,31 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
+setxkbmap -option caps:escape
 export PATH=$HOME/.local/bin:$PATH
-export PETSC_DIR=$HOME/kode/petsc/current
-export PETSC_ARCH=linux-gnu-opt
-
-source $HOME/scripts/ceetron.sh
-source ~/OpenFOAM/OpenFOAM-v1912/etc/bashrc
-
+export PATH=/usr/local/texlive/2020/bin/x86_64-linux:$PATH
+export PATH=/usr/local/Ceetron/GLvInova_10.2-6_x86_64/bin:$PATH
+export PETSC_DIR=$HOME/programs/petsc-3.13.1
+export PETSC_ARCH=linux-gnu-cxx-opt
+export EDITOR='vim'
+export VISUAL='vim'
+alias clipboard2photo='xclip -selection clipboard -t image/png -o > "$(date +%Y-%m-%d_%T).png"'
+alias pip='pip3'
+alias rm='trash'
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/joveve/programs/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+__conda_setup="$('/home/zetison/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/joveve/programs/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/joveve/programs/miniconda3/etc/profile.d/conda.sh"
+    if [ -f "/home/zetison/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/zetison/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/joveve/programs/miniconda3/bin:$PATH"
+        export PATH="/home/zetison/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
+conda deactivate
 # <<< conda initialize <<<
 
