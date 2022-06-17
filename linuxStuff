@@ -88,3 +88,11 @@ cat ~/.ssh/id_ed25519.pub
 
 # Remove ssh password
 ssh-keygen -p
+
+# Find and replace Foo with Bar
+sed -i "s/Foo/Bar/g" *
+# and recursively in all subfolders (from rootFolder) and ignore hidden files (like .git*)
+find . -type f -not -path '*/\.*' -exec sed -i 's/foo/bar/g' {} +
+
+# Change "Caps Lock" to "Esc"
+setxkbmap -option caps:escape
