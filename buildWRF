@@ -134,9 +134,7 @@ then
 	# Install ncl (using conda). Conda may be obtained from http://conda.pydata.org/miniconda.html
 
 	# conda create -n ncl_stable -c conda-forge ncl
-	source activate ncl_stable
-
-
+	conda activate ncl_stable
 fi
 
 if [[ $4 == 1 ]]
@@ -200,6 +198,7 @@ then
 	cd SISO
 	pip3 install --user . --trusted-host pypi.python.org --trusted-host files.pythonhosted.org --trusted-host pypi.org
 
+    # Remember to add NCEPuserDataJVV.json
 fi
 	
 if [[ $7 == 1 ]]
