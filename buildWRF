@@ -134,9 +134,7 @@ then
 	# Install ncl (using conda). Conda may be obtained from http://conda.pydata.org/miniconda.html
 
 	# conda create -n ncl_stable -c conda-forge ncl
-	source activate ncl_stable
-
-
+	conda activate ncl_stable
 fi
 
 if [[ $4 == 1 ]]
@@ -193,13 +191,14 @@ then
 	mkdir $HOME/kode/python
 	mv 0bb2cc307b4a7d3dbaaa2e119c6ca431-5026abcae7b67f64afef13331d58ff373acb6b8b/WRF2VTK.py $HOME/kode/python
 	conda install -c conda-forge wrf-python # need version > 1.3.2
-	conda install -c conda-forge wrf-python netCDF4 vtk scipy click requests pandas
+	conda install -c conda-forge wrf-python netCDF4 vtk scipy click requests pandas pyftpdlib
 	
 	cd $HOME/kode
 	git clone https://github.com/TheBB/SISO
 	cd SISO
 	pip3 install --user . --trusted-host pypi.python.org --trusted-host files.pythonhosted.org --trusted-host pypi.org
 
+    # Remember to add NCEPuserDataJVV.json
 fi
 	
 if [[ $7 == 1 ]]
