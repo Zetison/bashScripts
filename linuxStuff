@@ -96,3 +96,6 @@ find . -type f -not -path '*/\.*' -exec sed -i 's/foo/bar/g' {} +
 
 # Change "Caps Lock" to "Esc"
 setxkbmap -option caps:escape
+
+# Start cisco anyconnect:
+/opt/cisco/anyconnect/bin/vpnui
